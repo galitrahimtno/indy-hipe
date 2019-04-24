@@ -1,6 +1,6 @@
 # DIDCom over XMPP
 - Name: didcom-over-xmpp
-- Author: Oskar van Deventer (oskar.vandeventer@tno.nl)
+- Author: Oskar van Deventer (oskar.vandeventer@tno.nl), Galit Rahim (galit.rahim@tno.nl)
 - Start Date: 2019-04-23
 - PR: 
 - Jira Issue: 
@@ -8,7 +8,7 @@
 ## Summary
 [summary]: #summary
 
-The DIDCom-over-XMPP feature provides an architecture to exchange DIDCom Connection Protocol messages over the XMPP chat protocol. It enables:
+The DIDCom-over-XMPP feature provides an architecture to exchange DIDCom connection protocol messages over the XMPP chat protocol. It enables:
 
 - Initiation, use, maintenance and termination of a trusted electronic relationship
 - Binding of that relationship to a human-to-human communication channel 
@@ -26,20 +26,66 @@ The problem is quickly getting worse, given the explosion of communication chann
 
 The above problem space applies to any sector with intensive consumer-to-business communication, including health services, energy service, telecommunication services, television services, internet services, tax office services, parcel services, emergency services, etcetera.
 
-The [DIDCom connection protocol](https://github.com/hyperledger/indy-hipe/blob/b3f5c388/text/connection-protocol/README.md) enables the setting up and maintenance of a trusted electronic relationship, i.e. a pairwise DID relationship. The [XMPP protocol](https://en.wikipedia.org/wiki/XMPP) is a popular protocol for messaging. Their combination is expected to be beneficial here.
+- The [DIDCom connection protocol](https://github.com/hyperledger/indy-hipe/tree/master/text/0031-connection-protocol) enables the setting up and maintenance of a trusted electronic relationship.
+- The [XMPP protocol](https://en.wikipedia.org/wiki/XMPP) is a popular protocol for chat and messaging. Their combination is expected to be beneficial here.
 
 The DIDCom-over-XMPP feature supports the following use cases.
 
-- Use case 1: A new pairwise DID relationship is initiated during an electronic human-to-human communication.
-- Use case 2a: An existing pairwise DID relationship is used during an electronic human-to-human communication to authenticate it.
-- Use case 2b: An existing pairwise DID relationship is used to switch to another an electronic human-to-human communication without losing the call history.
+- Use case 1: A new trusted electronic relationship is initiated during an electronic human-to-human communication.
+- Use case 2a: An existing trusted electronic relationship is used during an electronic human-to-human communication to authenticate it.
+- Use case 2b: An existing trusted electronic relationship is used to switch to another an electronic human-to-human communication without losing the call history.
 
 ## Tutorial
 [tutorial]: #tutorial
 
+The DIDCom-over-XMPP feature provides an architecture for the transport of DIDCom messages over an XMPP network.
+
+### DIDCom
+
+The DIDCom connection protocol is specified in [Hyperledger Indy Hipe 0031](https://github.com/hyperledger/indy-hipe/tree/master/text/0031-connection-protocol). The purpose of the protocol is to set up a trusted electronic relationship between two parties (natural person, legal person, ...). Technically, the trust relationship involves the following
+
+- Univocal identification of the parties within the context of the relationship
+- Secure exchange of keys to encrypt and verify messages between agents of the parties
+- Secure exchange of service end points to be reachable at in the future
+
+W3C specifies [Data Model and Syntaxes for Decentralized Identifiers (DIDs)](https://w3c-ccg.github.io/did-spec/). This specification introduces Decentralized Identifiers, DIDs, for identification. A DID can be resolved into a DID Document that contains the associated keys and service endpoints, see also W3C's [A Primer for Decentralized Identifiers](https://w3c-ccg.github.io/did-primer/). W3C provides a [DID Method Registry](https://w3c-ccg.github.io/did-method-registry/) for a complete list of all known DID Method specifications. Many of the DID methods use an unambiguous source of truth to resolve a DID Document, e.g. a well governed public blockchain. An exception is the [Peer DID method](https://dhh1128.github.io/peer-did-method-spec/index.html) that relies on the peers, i.e. parties in the trusted electronic relationship to maintain the DID Document.
+
+The DIDCom connection protocol has several steps.
+- Step 0: Invitation to Connect, an out-of-band (open) invitation to connect
+- Step 1: Connection Request xxxxxxxxxxxxxxx
+
+
+using a pair of Decentralised Identifiers, a.k.a. pairwise DID.
+
+
+### XMPP
+
+Extensible Messaging and Presence Protocol (XMPP) is a communication protocol for message-oriented middleware based on XML (Extensible Markup Language). It enables the near-real-time exchange of structured yet extensible data between any two or more network entities. Designed to be extensible, the protocol has been used also for publish-subscribe systems, signalling for VoIP, video, file transfer, gaming, the Internet of Things applications such as the smart grid, and social networking services.
+
+Unlike most instant messaging protocols, XMPP is defined in an open standard and uses an open systems approach of development and application, by which anyone may implement an XMPP service and interoperate with other organizations' implementations. Because XMPP is an open protocol, implementations can be developed using any software license and many server, client, and library implementations are distributed as free and open-source software. Numerous freeware and commercial software implementations also exist.
+
+XMPP uses 3 types of messages:
+Message Type	Description
+PRESENSE	Inform listeners that agent is online
+MESSAGE	Sending message to other agent
+IQ MESSAGE	Asking for response from other agent
+
 
 ![XMPP_architecture.jpg](XMPP_architecture.jpg)
 
+
+
+### DIDCom over XMPP
+
+
+### Use cases
+
+
+#### Use case 1: A new trusted electronic relationship is initiated during an electronic human-to-human communication
+
+#### Use case 2a: An existing trusted electronic relationship is used during an electronic human-to-human communication to authenticate it
+
+#### Use case 2b: An existing trusted electronic relationship is used to switch to another an electronic human-to-human communication without losing the call history
 
 
 Explain the proposal as if it were already implemented and you
