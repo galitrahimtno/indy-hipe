@@ -22,7 +22,7 @@ This identication and authentication is currently cumbersome. On the phone, the 
 
 The problem is quickly getting worse, given the explosion of communication channels through which patients are contacting their health insurer. Phone, voice chat, text chat, video calls, Facebook chat, WhatsApp and Instagram are just some of the channels through which patient contact health insurers. Also all kinds of types and brands of personal health monitors are getting supported, each of which sends data to the health insurer that needs to be reliabily linked to the patient, and demonstrable authorization from the patient is needed before the health data can be collected, stored and used. Moreover, patients will be requisting information from the health insurer via virtual assistents like Amazon Alexa, Google Assistent, Apple Siri.
 
-![Many_communication_channels.jpg](Many_communication_channels.jpg)
+![Communication_channels.jpg](Communication_channels.jpg)
 
 The above problem space applies to any sector with intensive consumer-to-business communication, including health services, energy service, telecommunication services, television services, internet services, tax office services, parcel services, emergency services, etcetera.
 
@@ -36,6 +36,11 @@ The DIDCom-over-XMPP feature supports the following use cases.
 
 ## Tutorial
 [tutorial]: #tutorial
+
+
+![XMPP_architecture.jpg](XMPP_architecture.jpg)
+
+
 
 Explain the proposal as if it were already implemented and you
 were teaching it to another Indy contributor or Indy consumer. That generally
