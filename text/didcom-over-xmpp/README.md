@@ -1,6 +1,6 @@
 # DIDCom over XMPP
 - Name: didcom-over-xmpp
-- Author: Oskar van Deventer (oskar.vandeventer@tno.nl), Galit Rahim (galit.rahim@tno.nl)
+- Author: Oskar van Deventer (oskar.vandeventer@tno.nl), Galit Rahim (galit.rahim@tno.nl), Alexander Blom (alexander.blom@bloqzone.com)
 - Start Date: 2019-04-23
 - PR: 
 - Jira Issue: 
