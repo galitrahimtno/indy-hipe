@@ -50,60 +50,72 @@ The DIDCom connection protocol is specified in [Hyperledger Indy Hipe 0031](http
 
 W3C specifies [Data Model and Syntaxes for Decentralized Identifiers (DIDs)](https://w3c-ccg.github.io/did-spec/). This specification introduces Decentralized Identifiers, DIDs, for identification. A DID can be resolved into a DID Document that contains the associated keys and service endpoints, see also W3C's [A Primer for Decentralized Identifiers](https://w3c-ccg.github.io/did-primer/). W3C provides a [DID Method Registry](https://w3c-ccg.github.io/did-method-registry/) for a complete list of all known DID Method specifications. Many of the DID methods use an unambiguous source of truth to resolve a DID Document, e.g. a well governed public blockchain. An exception is the [Peer DID method](https://dhh1128.github.io/peer-did-method-spec/index.html) that relies on the peers, i.e. parties in the trusted electronic relationship to maintain the DID Document.
 
-The DIDCom connection protocol has several steps.
-- Step 0: Invitation to Connect, an out-of-band (open) invitation to connect
-- Step 1: Connection Request xxxxxxxxxxxxxxx
+The DIDCom connection protocol has several steps to create a trusted electronic relationship.
+- Step 0: Invitation to Connect, an out-of-band (open) invitation to connect from the *invitor*
+- Step 1: Connection Request, an encrypted request from the *invitee* to the *invitor* containg a pairwise DID and the associated DID Document
+- Step 2: Connected Response, an encrypted response from the *invitor* to the *invitee* containg a pairwise DID and the associated DID Document
+- Step 3: Trust building, any further verification steps and exchange of verifiable credentials to enhance the trust in the newly created electronic relationship. 
 
+The result is a trusted electronic relationship with a DID pair and associated DID Documents, ready for use in transactions. The DIDCom connecton protocol also includes steps to read (get current DID Document from the other), update (e.g. key rotation) and delete.
 
-using a pair of Decentralised Identifiers, a.k.a. pairwise DID.
-
-
-### XMPP
+### XMPP (Galit, please extend and change where needed)
 
 Extensible Messaging and Presence Protocol (XMPP) is a communication protocol for message-oriented middleware based on XML (Extensible Markup Language). It enables the near-real-time exchange of structured yet extensible data between any two or more network entities. Designed to be extensible, the protocol has been used also for publish-subscribe systems, signalling for VoIP, video, file transfer, gaming, the Internet of Things applications such as the smart grid, and social networking services.
 
 Unlike most instant messaging protocols, XMPP is defined in an open standard and uses an open systems approach of development and application, by which anyone may implement an XMPP service and interoperate with other organizations' implementations. Because XMPP is an open protocol, implementations can be developed using any software license and many server, client, and library implementations are distributed as free and open-source software. Numerous freeware and commercial software implementations also exist.
 
 XMPP uses 3 types of messages:
+
 Message Type	Description
 PRESENSE	Inform listeners that agent is online
 MESSAGE	Sending message to other agent
 IQ MESSAGE	Asking for response from other agent
 
+*more text as needed*
 
 ![XMPP_architecture.jpg](XMPP_architecture.jpg)
 
+### DIDCom over XMPP (Galit, your section)
 
+*text to be added*
 
-### DIDCom over XMPP
+#### Use of MESSAGE
 
+The DIDCom JSON text is send as plaintext as XMPP MESSAGE, without any additional identifiers.
 
-### Use cases
+#### Identifiers
 
+The service end point of DIDCom-over-XMPP service end point is derived from the XMPP address by preceding the domain part of the XMPP address with "did.". Here are some examples of this convention.
+
+- alice@foo.com/phone
+- alice@did.foo.com/phone
+- bob@bar.com/laptop
+- bob@did.bar.com/laptop
+
+### Use cases (Galit, more details as needed, e.g. about identifiers)
+
+Here are three use cases where DIDCom over XMPP is used
 
 #### Use case 1: A new trusted electronic relationship is initiated during an electronic human-to-human communication
 
+Patient Alice (*alice@foo.com/phone*) is having an XMPP chat session with Bob (*bob@bar.com/laptop*), an employee of the local hospital. At some point in time, Bob proposes to Alice to establish a trusted electronic communication channel for future use. Bob uses the popular marketing term for "DIDCom", which Alice recognizes and accepts. Next Bob sends Alice a DIDCom Invitation to Connect via the chat channel. After Alice has confirmed that she understands the instructions, they disconnect the chat session.
+
+Following the instructions, Alice's agent creates a new XMPP service end point *alice@did.foo.com/phone*. It sets up an XMPP chat session to the received address of Bob's agent, *bob@did.bar.com/laptop*. The two agents perform the remainder of the DIDCom connection protocol to create a pairwise-DID-based trusted electronic communication channel.
+
 #### Use case 2a: An existing trusted electronic relationship is used during an electronic human-to-human communication to authenticate it
+
+Patient Alice is on the phone with Bob, an employee of the local hospital. At some point in time, Bob recogmizes that he needs to authenticate Alice. Bob sees that he already has a trusted electronic communication channel with Alice. Bob asks Alice to repeat a six-digit code that she is about to receive via the trusated communication channel. Next, Bob instructs his agent with XMPP service end point *bob@did.bar.com/laptop*, to send a six-digit code to the XMPP service end point of Alice's agent, *alice@did.foo.com/phone*. Alice's agent receives the 6-digit code and presents it to Alice. Alice reads it back to Bob, upon Bob can share the privacy-sensitive information with Alice.
 
 #### Use case 2b: An existing trusted electronic relationship is used to switch to another an electronic human-to-human communication without losing the call history
 
+Patient Alice has a Facebook chat with Bob, an employee of the local hospital. At some point in time, Bob recogmizes that the information that he needs to share requires Alice to use a different, more secure communication channel. 
 
-Explain the proposal as if it were already implemented and you
-were teaching it to another Indy contributor or Indy consumer. That generally
-means:
-
-- Introducing new named concepts.
-- Explaining the feature largely in terms of examples.
-- Explaining how Indy contributors and/or consumers should *think* about the
-feature, and how it should impact the way they use the ecosystem.
-- If applicable, provide sample error messages, deprecation warnings, or
-migration guidance.
-
-Some enhancement proposals may be more aimed at contributors (e.g. for
-consensus internals); others may be more aimed at consumers.
+*Alexander, could you remind us how this use case would proceed?*
 
 ## Reference
 [reference]: #reference
+
+*text to be added*
 
 Provide guidance for implementers, procedures to inform testing,
 interface definitions, formal function prototypes, error codes,
@@ -117,10 +129,14 @@ Strive to guarantee that:
 ## Drawbacks
 [drawbacks]: #drawbacks
 
+*text to be added*
+
 Why should we *not* do this?
 
 ## Rationale and alternatives
 [alternatives]: #alternatives
+
+*text to be added*
 
 - Why is this design the best in the space of possible designs?
 - What other designs have been considered and what is the rationale for not
@@ -129,6 +145,8 @@ choosing them?
 
 ## Prior art
 [prior-art]: #prior-art
+
+*text to be added*
 
 Discuss prior art, both the good and the bad, in relation to this proposal.
 A few examples of what this can include are:
@@ -154,6 +172,8 @@ identity features.
 ## Unresolved questions
 [unresolved]: #unresolved-questions
 
+*text to be added*
+
 - What parts of the design do you expect to resolve through the
 enhancement proposal process before this gets merged?
 - What parts of the design do you expect to resolve through the
@@ -161,3 +181,8 @@ implementation of this feature before stabilization?
 - What related issues do you consider out of scope for this 
 proposal that could be addressed in the future independently of the
 solution that comes out of this doc?
+
+## Security considerations
+[security]: #security-considerations
+
+*text to be added*
