@@ -104,7 +104,7 @@ Following the instructions, Alice's agent creates a new XMPP service end point *
 
 #### Use case 2a: An existing trusted electronic relationship is used during an electronic human-to-human communication to authenticate it
 
-Patient Alice is on the phone with Bob, an employee of the local hospital. At some point in time, Bob recogmizes that he needs to authenticate Alice. Bob sees that he already has a trusted electronic communication channel with Alice. Bob asks Alice to repeat a six-digit code that she is about to receive via the trusated communication channel. Next, Bob instructs his agent with XMPP service end point *bob@did.bar.com/laptop*, to send a six-digit code to the XMPP service end point of Alice's agent, *alice@did.foo.com/phone*. Alice's agent receives the 6-digit code and presents it to Alice. Alice reads it back to Bob, upon Bob can share the privacy-sensitive information with Alice.
+Patient Alice is on the phone with Bob, an employee of the local hospital. At some point in time, Bob recogmizes that he needs to authenticate Alice. Bob sees that he already has a trusted electronic communication channel with Alice. Bob asks Alice to repeat a six-digit code that she is about to receive via the trusated communication channel. Next, Bob instructs his agent with XMPP service end point *bob@did.bar.com/laptop*, to send a six-digit code to the XMPP service end point of Alice's agent, *alice@did.foo.com/phone*. Alice's agent receives the 6-digit code and presents it to Alice. Alice reads it back to Bob, upon which Bob can share the privacy-sensitive information with Alice.
 
 #### Use case 2b: An existing trusted electronic relationship is used to switch to another an electronic human-to-human communication without losing the call history
 
