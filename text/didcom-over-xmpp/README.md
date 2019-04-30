@@ -96,6 +96,7 @@ The service end point of a DIDCom-over-XMPP service is derived from the XMPP add
 
 Here is an example of the "service" property of a DID Document with an XMPP service endpoint. Note that there is no resource (like "/laptop") indicated. This means that the XMPP service may route the DIDCom-over-XMPP message to Bob's phone, laptop or both. This depends on the XMPP routing logic provided by the XMPP service, as configured by Bob. 
 
+```
 {
   "service": [{
     "id": "did:example:123456789abcdefghi;xmpp",
@@ -103,6 +104,7 @@ Here is an example of the "service" property of a DID Document with an XMPP serv
     "serviceEndpoint": "xmpp:bob@did.bar.com"
   }]
 }
+```
 
 ### Use cases (Galit, more details as needed, e.g. about identifiers)
 
