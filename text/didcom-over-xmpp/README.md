@@ -8,13 +8,20 @@
 ## Summary
 [summary]: #summary
 
-The DIDCom-over-XMPP feature provides an architecture to exchange DIDCom connection protocol messages over the XMPP chat protocol. It enables:
+Firewalls are a major issue for peer-to-peer DID relationships. The DIDCom-over-XMPP feature provides an architecture to exchange DIDCom connection protocol messages over the XMPP chat protocol, bypassing any firewall issues.
+
+DIDCom-over-XMPP enables, unburdened of any firwall issues:
 
 - Initiation, use, maintenance and termination of a trusted electronic relationship
+- DIDCom agents being available for incoming DIDCom messages
 - Binding of that relationship to a human-to-human communication channel 
 
 ## Motivation
 [motivation]: #motivation
+
+Firewalls are a major issue for peer-to-peer DID relationships. All examples of service endpoint in the W3C DID specification use http. This assumes that the endpoint is running an http server and firewalls have been opened to pass this traffic. This assumption typically fails for smartphone DIDCom agents, as well as private internet connections of consumers and small busineses. As a consequence, such DIDCom agents are unavailable for incoming DIDCom messages, whereas several use cases require this.
+
+*Use cases below still need to be updated with the firewall issue*
 
 When a consumer contacts a business, then often identity proof is required during the conversation. For example, when a patient calls a health insurer, then the insurer can share any public information freely, like the insurance coverage of medical supplies for its various insurance products. However, the caller may next ask about its specific case, "does my current insurance cover a wheelchair". Before sharing such privacy-sensitive information with the caller, it needs to identify and authenticate the caller, and verify the caller's authorization to receive that information.
 
