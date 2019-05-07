@@ -92,14 +92,18 @@ The DIDCom JSON text is send as plaintext as XMPP MESSAGE, without any additiona
 
 #### Service endpoint
 
-The service end point of a DIDCom-over-XMPP service is derived from the XMPP address by preceding the domain part of the XMPP address with "did.". Here are some examples of this convention.
+The service end point of a DIDCom-over-XMPP service is derived from the XMPP address by preceding the domain part of the XMPP address with "did." and remove the resources part, i.e. the "/" and anything behind it. The reason for removing the resources part is that DIDCom messages are addressed to the person/entity associated with the DID, and not to any particular device. 
 
+Here are some examples of this convention.
+
+- xmpp:alice@foo.com
 - xmpp:alice@foo.com/phone
- - xmpp:alice@did.foo.com/phone
-- xmpp:bob@bar.com/phone
- - xmpp:bob@did.bar.com/phone
+--> xmpp:alice@did.foo.com
+
+- xmpp:bob@bar.com
 - xmpp:bob@bar.com/laptop
- - xmpp:bob@did.bar.com/laptop
+- xmpp:bob@bar.com/phone
+ --> xmpp:bob@did.bar.com
 
 Here is an example of the "service" property of a DID Document with an XMPP service endpoint. Note that there is no resource (like "/laptop") indicated. This means that the XMPP service may route the DIDCom-over-XMPP message to Bob's phone, laptop or both. This depends on the XMPP routing logic provided by the XMPP service, as configured by Bob. 
 
@@ -112,6 +116,15 @@ Here is an example of the "service" property of a DID Document with an XMPP serv
   }]
 }
 ```
+
+#### ABNF
+
+Here is a formal [ABNF](ftp://ftp.rfc-editor.org/in-notes/std/std68.txt) description of the XMPP service endpoint syntax.
+
+xmmp-service-endpoint = "xmpp:" userpart "@did." domainpart
+  userpart = 1\*CHAR
+  domainpart = 1\*CHAR 1\*("." 1\*char)
+  CHAR = %x01-7F
 
 ### Use cases (Galit, more details as needed, e.g. about identifiers)
 
