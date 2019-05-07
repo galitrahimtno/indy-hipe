@@ -121,10 +121,12 @@ Here is an example of the "service" property of a DID Document with an XMPP serv
 
 Here is a formal [ABNF](ftp://ftp.rfc-editor.org/in-notes/std/std68.txt) description of the XMPP service endpoint syntax.
 
+```
 xmmp-service-endpoint = "xmpp:" userpart "@did." domainpart
   userpart = 1\*CHAR
   domainpart = 1\*CHAR 1\*("." 1\*char)
   CHAR = %x01-7F
+```
 
 ### Use cases (Galit, more details as needed, e.g. about identifiers)
 
