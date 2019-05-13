@@ -73,10 +73,11 @@ Unlike most instant messaging protocols, XMPP is defined in an open standard and
 
 XMPP uses 3 types of messages:
 
-Message Type	Description
-PRESENSE	Inform listeners that agent is online
-MESSAGE	Sending message to other agent
-IQ MESSAGE	Asking for response from other agent
+| Message Type  | Description   |
+| ------------- |:-------------:|
+| PRESENSE      | Inform listeners that agent is online |
+| MESSAGE      | Sending message to other agent      |
+| IQ MESSAGE | Asking for response from other agent      |
 
 *more text as needed*
 
@@ -86,9 +87,11 @@ IQ MESSAGE	Asking for response from other agent
 
 *text to be added*
 
+For use of XMPP we are going to use Openfire Server open source project. We are also using 2 plugins to enable server caching and message carbon copy. This will enable sending DIDcom to mulitple endpoints of the same person.
+
 #### Use of MESSAGE
 
-The DIDCom JSON text is send as plaintext as XMPP MESSAGE, without any additional identifiers.
+The DIDCom JSON text is send as plain text as XMPP MESSAGE, without any additional identifiers.
 
 #### Service endpoint
 
@@ -105,7 +108,8 @@ Here are some examples of this convention.
 - xmpp:bob@bar.com/phone
  --> xmpp:bob@did.bar.com
 
-Here is an example of the "service" property of a DID Document with an XMPP service endpoint. Note that there is no resource (like "/laptop") indicated. This means that the XMPP service may route the DIDCom-over-XMPP message to Bob's phone, laptop or both. This depends on the XMPP routing logic provided by the XMPP service, as configured by Bob. 
+
+Here is an example of the "service" property of a DID Document with an XMPP service endpoint. Note that there is no resource (like "/laptop") indicated. In normal XMPP a message can only be send to one resource, even if there are multiple resources online (for example /phone and /tablet). If a message is send to a XMPP address without using an specific resource, the server chooses which resource gets the message. The is usually based on importance of the resources (which the user can configure). However the routing logic of the XMPP server can be changed to follow different rules.
 
 ```
 {
@@ -116,6 +120,10 @@ Here is an example of the "service" property of a DID Document with an XMPP serv
   }]
 }
 ```
+
+XMPP servers handle messages sent to a user@host (or "bare") JID with no resource by delivering that message only to the resource with the highest priority for the target user. Some server implementations, however, have chosen to send these messages to all of the online resources for the target user. If the target user is online with multiple resources when the original message is sent, a conversation ensues on one of the user's devices; if the user subsequently switches devices, parts of the conversation may end up on the alternate device, causing the user to be confused, misled, or annoyed.
+
+To solve this the plugin "Message Carbons" will be used. It will ensure that all of target user devices get both sides of all conversations in order to avoid user confusion. As a pleasant side-effect, information about the current state of a conversation is shared between all of a user's clients that implement this protocol.
 
 #### ABNF
 
@@ -130,7 +138,7 @@ xmpp-service-endpoint = "xmpp:" userpart "@did." domainpart
 
 ### Use cases (Galit, more details as needed, e.g. about identifiers)
 
-Here are three use cases where DIDCom over XMPP is used
+Here are three use cases where DIDCom over XMPP is used.
 
 #### Use case 1: A new trusted electronic relationship is initiated during an electronic human-to-human communication
 
@@ -144,7 +152,7 @@ Patient Alice is on the phone with Bob, an employee of the local hospital. At so
 
 #### Use case 2b: An existing trusted electronic relationship is used to switch to another an electronic human-to-human communication without losing the call history
 
-Patient Alice has a Facebook chat with Bob, an employee of the local hospital. At some point in time, Bob recogmizes that the information that he needs to share requires Alice to use a different, more secure communication channel. 
+Patient Alice has a Facebook chat with Bob, an employee of the local hospital. At some point in time, Bob recognizes that the information that he needs to share requires Alice to use a different, more secure communication channel. 
 
 *Alexander, could you remind us how this use case would proceed?*
 
