@@ -19,22 +19,18 @@ DIDCom-over-XMPP enables, unburdened of any firwall issues:
 ## Motivation
 [motivation]: #motivation
 
-Firewalls are a major issue for peer-to-peer DID relationships. All examples of service endpoint in the W3C DID specification use http. This assumes that the endpoint is running an http server and firewalls have been opened to pass this traffic. This assumption typically fails for smartphone DIDCom agents, as well as private internet connections of consumers and small busineses. As a consequence, such DIDCom agents are unavailable for incoming DIDCom messages, whereas several use cases require this.
+Firewalls are a major issue for peer-to-peer DID relationships. All examples of service endpoint in the W3C DID specification use HTTP. This assumes that the endpoint is running an HTTP server and firewalls have been opened to pass this traffic. This assumption typically fails for smartphone DIDCom agents, as well as private internet connections of consumers and small busineses. As a consequence, such DIDCom agents are unavailable for incoming DIDCom messages, whereas several use cases require this. The following are examples of this.
 
-*Use cases below still need to be updated with the firewall issue*
-
-When a consumer contacts a business, then often identity proof is required during the conversation. For example, when a patient calls a health insurer, then the insurer can share any public information freely, like the insurance coverage of medical supplies for its various insurance products. However, the caller may next ask about its specific case, "does my current insurance cover a wheelchair". Before sharing such privacy-sensitive information with the caller, it needs to identify and authenticate the caller, and verify the caller's authorization to receive that information.
-
-This identication and authentication is currently cumbersome. On the phone, the health insurer may ask for patient number, date-of-birth, maiden-name-of-mother, and more. Such checks take valuable call-center time and they are error-prone. Moreover, they are insufficient for some transactions, like the patient's commitment to pay for the other half of the wheelchair. In the latter case, the caller needs to contact the health insurer via another, more secure channel and explain the whole story again to a different person.
-
-The problem is quickly getting worse, given the explosion of communication channels through which patients are contacting their health insurer. Phone, voice chat, text chat, video calls, Facebook chat, WhatsApp and Instagram are just some of the channels through which patient contact health insurers. Also all kinds of types and brands of personal health monitors are getting supported, each of which sends data to the health insurer that needs to be reliabily linked to the patient, and demonstrable authorization from the patient is needed before the health data can be collected, stored and used. Moreover, patients will be requisting information from the health insurer via virtual assistents like Amazon Alexa, Google Assistent, Apple Siri.
+When a consumer contacts a business, then often identity proof is required during the conversation. For example, when a patient calls a health insurer, then the insurer can share any public information freely, like the insurance coverage of medical supplies for its various insurance products. However, the caller may next ask about its specific case, "does my current insurance cover a wheelchair". Before sharing such privacy-sensitive information with the caller, it needs to identify and authenticate the caller, and verify the caller's authorization to receive that information. This identication and authentication is currently cumbersome. On the phone, the health insurer may ask for patient number, date-of-birth, maiden-name-of-mother, and more. Such checks take valuable call-center time and they are error-prone. Moreover, they are insufficient for some transactions, like the patient's commitment to pay for the other half of the wheelchair. In the latter case, the caller needs to contact the health insurer via another, more secure channel and explain the whole story again to a different person. The problem is quickly getting worse, given the explosion of communication channels through which patients are contacting their health insurer. Phone, voice chat, text chat, video calls, Facebook chat, WhatsApp and Instagram are just some of the channels through which patient contact health insurers. Also all kinds of types and brands of personal health monitors are getting supported, each of which sends data to the health insurer that needs to be reliabily linked to the patient, and demonstrable authorization from the patient is needed before the health data can be collected, stored and used. Moreover, patients will be requisting information from the health insurer via virtual assistents like Amazon Alexa, Google Assistent, Apple Siri.
 
 ![Communication_channels.jpg](Communication_channels.jpg)
 
 The above problem space applies to any sector with intensive consumer-to-business communication, including health services, energy service, telecommunication services, television services, internet services, tax office services, parcel services, emergency services, etcetera.
 
+In the ideal case, the insurer just sends a DIDCom message to the caller to link the current human-to-human communication to the DIDCom agent-to-agent communication, bypassing any firewall issues. The combination of DIDCom and XMPP achieves this.
+
 - The [DIDCom connection protocol](https://github.com/hyperledger/indy-hipe/tree/master/text/0031-connection-protocol) enables the setting up and maintenance of a trusted electronic relationship.
-- The [XMPP protocol](https://en.wikipedia.org/wiki/XMPP) is a popular protocol for chat and messaging. Their combination is expected to be beneficial here.
+- The [XMPP protocol](https://en.wikipedia.org/wiki/XMPP) is a popular protocol for chat and messaging. It has a client-server structure that bypasses any firewall issues.
 
 The DIDCom-over-XMPP feature supports the following use cases.
 
@@ -45,7 +41,7 @@ The DIDCom-over-XMPP feature supports the following use cases.
 ## Tutorial
 [tutorial]: #tutorial
 
-The DIDCom-over-XMPP feature provides an architecture for the transport of DIDCom messages over an XMPP network.
+The DIDCom-over-XMPP feature provides an architecture for the transport of DIDCom messages over an XMPP network, using XMPP to bypass any firewalls at the receiving side.
 
 ### DIDCom
 
@@ -65,7 +61,7 @@ The DIDCom connection protocol has several steps to create a trusted electronic 
 
 The result is a trusted electronic relationship with a DID pair and associated DID Documents, ready for use in transactions. The DIDCom connecton protocol also includes steps to read (get current DID Document from the other), update (e.g. key rotation) and delete.
 
-### XMPP (Galit, please extend and change where needed)
+### XMPP
 
 Extensible Messaging and Presence Protocol (XMPP) is a communication protocol for message-oriented middleware based on XML (Extensible Markup Language). It enables the near-real-time exchange of structured yet extensible data between any two or more network entities. Designed to be extensible, the protocol has been used also for publish-subscribe systems, signalling for VoIP, video, file transfer, gaming, the Internet of Things applications such as the smart grid, and social networking services.
 
@@ -73,19 +69,16 @@ Unlike most instant messaging protocols, XMPP is defined in an open standard and
 
 XMPP uses 3 types of messages:
 
-| Message Type  | Description   |
-| ------------- |:-------------:|
-| PRESENSE      | Inform listeners that agent is online |
-| MESSAGE      | Sending message to other agent      |
-| IQ MESSAGE | Asking for response from other agent      |
+| Message Type  | Description                               |
+| ------------- |:-------------:                            |
+| PRESENSE      | Inform listeners that agent is online     |
+| MESSAGE       | Sending message to other agent            |
+| IQ MESSAGE    | Asking for response from other agent      |
 
-*more text as needed*
 
 ![XMPP_architecture.jpg](XMPP_architecture.jpg)
 
-### DIDCom over XMPP (Galit, your section)
-
-*text to be added*
+### DIDCom over XMPP
 
 For use of XMPP we are going to use Openfire Server open source project. We are also using 2 plugins to enable server caching and message carbon copy. This will enable sending DIDcom to mulitple endpoints of the same person.
 
@@ -136,7 +129,7 @@ xmpp-service-endpoint = "xmpp:" userpart "@did." domainpart
   CHAR = %x01-7F
 ```
 
-### Use cases (Galit, more details as needed, e.g. about identifiers)
+### Use cases
 
 Here are three use cases where DIDCom over XMPP is used.
 
@@ -144,89 +137,46 @@ Here are three use cases where DIDCom over XMPP is used.
 
 Patient Alice (*xmpp:alice@foo.com/phone*) is having an XMPP chat session with Bob (*xmpp:bob@bar.com/laptop*), an employee of the local hospital. At some point in time, Bob proposes to Alice to establish a trusted electronic communication channel for future use. Bob uses the popular marketing term for "DIDCom", which Alice recognizes and accepts. Next Bob sends Alice a DIDCom Invitation to Connect via the chat channel. After Alice has confirmed that she understands the instructions, they disconnect the chat session.
 
-Following the instructions, Alice's agent creates a new XMPP service end point *xmpp:alice@did.foo.com/phone*. It sets up an XMPP chat session to the received address of Bob's agent, *xmpp:bob@did.bar.com/laptop*. The two agents perform the remainder of the DIDCom connection protocol to create a pairwise-DID-based trusted electronic communication channel.
+Following the instructions, Alice's agent creates a new XMPP service end point *xmpp:alice@did.foo.com*. It sets up an XMPP chat session to the received address of Bob's agent, *xmpp:bob@did.bar.com*. The two agents perform the remainder of the DIDCom connection protocol to create a pairwise-DID-based trusted electronic communication channel.
 
 #### Use case 2a: An existing trusted electronic relationship is used during an electronic human-to-human communication to authenticate it
 
-Patient Alice is on the phone with Bob, an employee of the local hospital. At some point in time, Bob recogmizes that he needs to authenticate Alice. Bob sees that he already has a trusted electronic communication channel with Alice. Bob asks Alice to repeat a six-digit code that she is about to receive via the trusated communication channel. Next, Bob instructs his agent with XMPP service end point *xmpp:bob@did.bar.com/laptop*, to send a six-digit code to the XMPP service end point of Alice's agent, *xmpp:alice@did.foo.com/phone*. Alice's agent receives the 6-digit code and presents it to Alice. Alice reads it back to Bob, upon which Bob can share the privacy-sensitive information with Alice.
+Patient Alice is on the phone with Bob, an employee of the local hospital. At some point in time, Bob recogmizes that he needs to authenticate Alice. Bob sees that he already has a trusted electronic communication channel with Alice. Bob asks Alice to repeat a six-digit code that she is about to receive via the trusated communication channel. Next, Bob instructs his agent with XMPP service end point *xmpp:bob@did.bar.com*, to send a six-digit code to the XMPP service end point of Alice's agent, *xmpp:alice@did.foo.com*. Alice's agent receives the 6-digit code and presents it to Alice. Alice reads it back to Bob, upon which Bob can share the privacy-sensitive information with Alice.
 
 #### Use case 2b: An existing trusted electronic relationship is used to switch to another an electronic human-to-human communication without losing the call history
 
-Patient Alice has a Facebook chat with Bob, an employee of the local hospital. At some point in time, Bob recognizes that the information that he needs to share requires Alice to use a different, more secure communication channel. 
+Patient Alice has a Facebook chat with Bob, an employee of the local hospital. At some point in time, Bob recognizes that the information that he needs to share requires Alice to use a different, more secure communication channel. Bob provides Alice with a reference, which Alice uses in the new more secure communication channel.
 
-*Alexander, could you remind us how this use case would proceed?*
+*Editor's note: The use of DIDCom for use case 2b needs to be clarified.*
 
 ## Reference
 [reference]: #reference
 
-*text to be added*
-
-Provide guidance for implementers, procedures to inform testing,
-interface definitions, formal function prototypes, error codes,
-diagrams, and other technical details that might be looked up.
-Strive to guarantee that:
-
-- Interactions with other features are clear.
-- Implementation trajectory is well defined.
-- Corner cases are dissected by example.
+*Editor's note: add references*
 
 ## Drawbacks
 [drawbacks]: #drawbacks
 
-*text to be added*
-
-Why should we *not* do this?
+So far, no drawbacks have been identified.
 
 ## Rationale and alternatives
 [alternatives]: #alternatives
 
-*text to be added*
+All service endpoint examples from W3C's [Data Model and Syntaxes for Decentralized Identifiers (DIDs)](https://w3c-ccg.github.io/did-spec/) are HTTP. So if a consumer would want to be reachable for incoming DIDCom messages, then it should run an HTTP service on its consumer device and take actions to open firewalls (and handle network-address translations) towards its device. Such scenario is technically completely unrealistic, not to mention the security implications of such scenario.
 
-- Why is this design the best in the space of possible designs?
-- What other designs have been considered and what is the rationale for not
-choosing them?
-- What is the impact of not doing this?
+XMPP was specifically designed for icoming messages to consumer devices. XMPP's client-server structure overcomes any firewall issues.
 
 ## Prior art
 [prior-art]: #prior-art
 
-*text to be added*
-
-Discuss prior art, both the good and the bad, in relation to this proposal.
-A few examples of what this can include are:
-
-- Does this feature exist in other SSI ecosystems and what experience have
-their community had?
-- For other teams: What lessons can we learn from other attempts?
-- Papers: Are there any published papers or great posts that discuss this?
-If you have some relevant papers to refer to, this can serve as a more detailed
-theoretical background.
-
-This section is intended to encourage you as an author to think about the
-lessons from other implementers, provide readers of your proposal with a
-fuller picture. If there is no prior art, that is fine - your ideas are
-interesting to us whether they are brand new or if they are an adaptation
-from other communities.
-
-Note that while precedent set by other communities is some motivation, it
-does not on its own motivate an enhancement proposal here. Please also take
-into consideration that Indy sometimes intentionally diverges from common
-identity features.
+*Editor's note: add prior art*
 
 ## Unresolved questions
 [unresolved]: #unresolved-questions
 
-*text to be added*
-
-- What parts of the design do you expect to resolve through the
-enhancement proposal process before this gets merged?
-- What parts of the design do you expect to resolve through the
-implementation of this feature before stabilization?
-- What related issues do you consider out of scope for this 
-proposal that could be addressed in the future independently of the
-solution that comes out of this doc?
+*Editor's note: add unresolved questions*
 
 ## Security considerations
 [security]: #security-considerations
 
-*text to be added*
+*Editor's note: add security considerations*
