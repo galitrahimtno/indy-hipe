@@ -8,13 +8,20 @@
 ## Summary
 [summary]: #summary
 
-The DIDCom-over-XMPP feature provides an architecture to exchange DIDCom connection protocol messages over the XMPP chat protocol. It enables:
+Firewalls are a major issue for peer-to-peer DID relationships. The DIDCom-over-XMPP feature provides an architecture to exchange DIDCom connection protocol messages over the XMPP chat protocol, bypassing any firewall issues.
+
+DIDCom-over-XMPP enables, unburdened of any firwall issues:
 
 - Initiation, use, maintenance and termination of a trusted electronic relationship
+- DIDCom agents being available for incoming DIDCom messages
 - Binding of that relationship to a human-to-human communication channel 
 
 ## Motivation
 [motivation]: #motivation
+
+Firewalls are a major issue for peer-to-peer DID relationships. All examples of service endpoint in the W3C DID specification use http. This assumes that the endpoint is running an http server and firewalls have been opened to pass this traffic. This assumption typically fails for smartphone DIDCom agents, as well as private internet connections of consumers and small busineses. As a consequence, such DIDCom agents are unavailable for incoming DIDCom messages, whereas several use cases require this.
+
+*Use cases below still need to be updated with the firewall issue*
 
 When a consumer contacts a business, then often identity proof is required during the conversation. For example, when a patient calls a health insurer, then the insurer can share any public information freely, like the insurance coverage of medical supplies for its various insurance products. However, the caller may next ask about its specific case, "does my current insurance cover a wheelchair". Before sharing such privacy-sensitive information with the caller, it needs to identify and authenticate the caller, and verify the caller's authorization to receive that information.
 
@@ -88,14 +95,18 @@ The DIDCom JSON text is send as plain text as XMPP MESSAGE, without any addition
 
 #### Service endpoint
 
-The service endpoint of a DIDCom-over-XMPP service is derived from the XMPP address by preceding the domain part of the XMPP address with "did.". Here are some examples of this convention.
+The service end point of a DIDCom-over-XMPP service is derived from the XMPP address by preceding the domain part of the XMPP address with "did." and remove the resources part, i.e. the "/" and anything behind it. The reason for removing the resources part is that DIDCom messages are addressed to the person/entity associated with the DID, and not to any particular device. 
 
+Here are some examples of this convention.
+
+- xmpp:alice@foo.com
 - xmpp:alice@foo.com/phone
- - xmpp:alice@did.foo.com/phone
-- xmpp:bob@bar.com/phone
- - xmpp:bob@did.bar.com/phone
+--> xmpp:alice@did.foo.com
+
+- xmpp:bob@bar.com
 - xmpp:bob@bar.com/laptop
- - xmpp:bob@did.bar.com/laptop
+- xmpp:bob@bar.com/phone
+ --> xmpp:bob@did.bar.com
 
 
 Here is an example of the "service" property of a DID Document with an XMPP service endpoint. Note that there is no resource (like "/laptop") indicated. In normal XMPP a message can only be send to one resource, even if there are multiple resources online (for example /phone and /tablet). If a message is send to a XMPP address without using an specific resource, the server chooses which resource gets the message. The is usually based on importance of the resources (which the user can configure). However the routing logic of the XMPP server can be changed to follow different rules.
@@ -112,7 +123,18 @@ Here is an example of the "service" property of a DID Document with an XMPP serv
 
 XMPP servers handle messages sent to a user@host (or "bare") JID with no resource by delivering that message only to the resource with the highest priority for the target user. Some server implementations, however, have chosen to send these messages to all of the online resources for the target user. If the target user is online with multiple resources when the original message is sent, a conversation ensues on one of the user's devices; if the user subsequently switches devices, parts of the conversation may end up on the alternate device, causing the user to be confused, misled, or annoyed.
 
-To solve thisthe plugin "Message Carbons" will be used. It will ensure that all of target user devices get both sides of all conversations in order to avoid user confusion. As a pleasant side-effect, information about the current state of a conversation is shared between all of a user's clients that implement this protocol.
+To solve this the plugin "Message Carbons" will be used. It will ensure that all of target user devices get both sides of all conversations in order to avoid user confusion. As a pleasant side-effect, information about the current state of a conversation is shared between all of a user's clients that implement this protocol.
+
+#### ABNF
+
+Here is a formal [ABNF](ftp://ftp.rfc-editor.org/in-notes/std/std68.txt) description of the XMPP service endpoint syntax.
+
+```
+xmpp-service-endpoint = "xmpp:" userpart "@did." domainpart
+  userpart = 1\*CHAR
+  domainpart = 1\*CHAR 1\*("." 1\*char)
+  CHAR = %x01-7F
+```
 
 ### Use cases (Galit, more details as needed, e.g. about identifiers)
 
