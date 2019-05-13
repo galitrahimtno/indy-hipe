@@ -80,7 +80,9 @@ XMPP uses 3 types of messages:
 
 ### DIDCom over XMPP
 
-For use of XMPP we are going to use Openfire Server open source project. We are also using 2 plugins to enable server caching and message carbon copy. This will enable sending DIDcom to mulitple endpoints of the same person.
+For use of XMPP, it is recommended to use [Openfire Server](https://www.igniterealtime.org/projects/openfire/) open source project, including 2 plugins to enable server caching and message carbon copy. This will enable sending DIDcom to mulitple endpoints of the same person.
+
+*Editor's note: add proper references to the 2 plugins*
 
 #### Use of MESSAGE
 
