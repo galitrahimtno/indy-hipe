@@ -94,7 +94,7 @@ The service end point of a DIDCom-over-XMPP service is derived from the XMPP add
 
 Here are some examples of this convention.
 
-'''
+```
 - xmpp:alice@foo.com
 - xmpp:alice@foo.com/phone
 --> xmpp:alice@did.foo.com
@@ -103,7 +103,7 @@ Here are some examples of this convention.
 - xmpp:bob@bar.com/laptop
 - xmpp:bob@bar.com/phone
  --> xmpp:bob@did.bar.com
-'''
+```
 
 Here is an example of the "service" property of a DID Document with an XMPP service endpoint. Note that there is no resource (like "/laptop") indicated. In normal XMPP a message can only be send to one resource, even if there are multiple resources online (for example /phone and /tablet). If a message is send to a XMPP address without using an specific resource, the server chooses which resource gets the message. The is usually based on importance of the resources (which the user can configure). However the routing logic of the XMPP server can be changed to follow different rules.
 
