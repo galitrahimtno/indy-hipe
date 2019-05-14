@@ -1,6 +1,6 @@
 # DIDCom over XMPP
 - Name: didcom-over-xmpp
-- Author: Oskar van Deventer (oskar.vandeventer@tno.nl), Galit Rahim (galit.rahim@tno.nl), Alexander Blom (alexander.blom@bloqzone.com)
+- Authors: Oskar van Deventer (oskar.vandeventer@tno.nl), Galit Rahim (galit.rahim@tno.nl), Alexander Blom (alexander.blom@bloqzone.com)
 - Start Date: 2019-04-23
 - PR: 
 - Jira Issue: 
@@ -124,26 +124,6 @@ xmpp-service-endpoint = "xmpp:" userpart "@did." domainpart
   domainpart = 1\*CHAR 1\*("." 1\*char)
   CHAR = %x01-7F
 ```
-
-### Use cases
-
-Here are three use cases where DIDCom over XMPP is used.
-
-#### Use case 1: A new trusted electronic relationship is initiated during an electronic human-to-human communication
-
-Patient Alice (*xmpp:alice@foo.com/phone*) is having an XMPP chat session with Bob (*xmpp:bob@bar.com/laptop*), an employee of the local hospital. At some point in time, Bob proposes to Alice to establish a trusted electronic communication channel for future use. Bob uses the popular marketing term for "DIDCom", which Alice recognizes and accepts. Next Bob sends Alice a DIDCom Invitation to Connect via the chat channel. After Alice has confirmed that she understands the instructions, they disconnect the chat session.
-
-Following the instructions, Alice's agent creates a new XMPP service end point *xmpp:alice@did.foo.com*. It sets up an XMPP chat session to the received address of Bob's agent, *xmpp:bob@did.bar.com*. The two agents perform the remainder of the DIDCom connection protocol to create a pairwise-DID-based trusted electronic communication channel.
-
-#### Use case 2a: An existing trusted electronic relationship is used during an electronic human-to-human communication to authenticate it
-
-Patient Alice is on the phone with Bob, an employee of the local hospital. At some point in time, Bob recogmizes that he needs to authenticate Alice. Bob sees that he already has a trusted electronic communication channel with Alice. Bob asks Alice to repeat a six-digit code that she is about to receive via the trusated communication channel. Next, Bob instructs his agent with XMPP service end point *xmpp:bob@did.bar.com*, to send a six-digit code to the XMPP service end point of Alice's agent, *xmpp:alice@did.foo.com*. Alice's agent receives the 6-digit code and presents it to Alice. Alice reads it back to Bob, upon which Bob can share the privacy-sensitive information with Alice.
-
-#### Use case 2b: An existing trusted electronic relationship is used to switch to another an electronic human-to-human communication without losing the call history
-
-Patient Alice has a Facebook chat with Bob, an employee of the local hospital. At some point in time, Bob recognizes that the information that he needs to share requires Alice to use a different, more secure communication channel. Bob provides Alice with a reference, which Alice uses in the new more secure communication channel.
-
-*Editor's note: The use of DIDCom for use case 2b needs to be clarified.*
 
 ## Reference
 [reference]: #reference
