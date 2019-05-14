@@ -133,7 +133,7 @@ xmpp-service-endpoint = "xmpp:" userpart "@did." domainpart
 ## Drawbacks
 [drawbacks]: #drawbacks
 
-So far, no drawbacks have been identified.
+No drawbacks have been identified.
 
 ## Rationale and alternatives
 [alternatives]: #alternatives
