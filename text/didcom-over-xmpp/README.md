@@ -8,35 +8,35 @@
 ## Summary
 [summary]: #summary
 
-Firewalls are a major issue for peer-to-peer DID relationships. The DIDCom-over-XMPP feature provides an architecture to exchange DIDCom connection protocol messages over the XMPP chat protocol, bypassing any firewall issues.
+While DIDCom leaves its users free to choose any underlying communication protocol, for peer-to-peer DID relationships with one or both parties behind a firewall actually getting the messages to the other party is not straightforward.  
 
-DIDCom-over-XMPP enables, unburdened of any firwall issues:
+Fortunately this is a classical problem, encountered by all realtime communication protocols, and it is therefore natural to use one of these protocols to deal with the obstacles posed by firewalls. The DIDCom-over-XMPP feature provides an architecture to exchange DIDCom connection protocol messages over XMPP, using XMPP to solve any firewall issues.
+
+DIDCom-over-XMPP enables:
 
 - Initiation, use, maintenance and termination of a trusted electronic relationship
-- DIDCom agents being available for incoming DIDCom messages
-- Binding of that relationship to a human-to-human communication channel 
+- DIDCom agents being available for incoming DIDCom messages despite being behind a firewall
+- Binding of that relationship to a human-to-human communication channel
+
+and all of this in spite of the presence of firewalls.
 
 ## Motivation
 [motivation]: #motivation
 
-Firewalls are a major issue for peer-to-peer DID relationships. All examples of service endpoint in the W3C DID specification use HTTP. This assumes that the endpoint is running an HTTP server and firewalls have been opened to pass this traffic. This assumption typically fails for smartphone DIDCom agents, as well as private internet connections of consumers and small busineses. As a consequence, such DIDCom agents are unavailable for incoming DIDCom messages, whereas several use cases require this. The following are examples of this.
+Currently, all examples of service endpoint in the W3C DID specification use HTTP. This assumes that the endpoint is running an HTTP server and firewalls have been opened to allow this traffic to pass through. This assumption typically fails for DIDCom agents behind LAN firewalls or using cellular networks. As a consequence, such DIDCom agents can be expected to be unavailable for incoming DIDCom messages, whereas several use cases require this. The following is an example of this.
 
-When a consumer contacts a business, then often identity proof is required during the conversation. For example, when a patient calls a health insurer, then the insurer can share any public information freely, like the insurance coverage of medical supplies for its various insurance products. However, the caller may next ask about its specific case, "does my current insurance cover a wheelchair". Before sharing such privacy-sensitive information with the caller, it needs to identify and authenticate the caller, and verify the caller's authorization to receive that information. This identication and authentication is currently cumbersome. On the phone, the health insurer may ask for patient number, date-of-birth, maiden-name-of-mother, and more. Such checks take valuable call-center time and they are error-prone. Moreover, they are insufficient for some transactions, like the patient's commitment to pay for the other half of the wheelchair. In the latter case, the caller needs to contact the health insurer via another, more secure channel and explain the whole story again to a different person. The problem is quickly getting worse, given the explosion of communication channels through which patients are contacting their health insurer. Phone, voice chat, text chat, video calls, Facebook chat, WhatsApp and Instagram are just some of the channels through which patient contact health insurers. Also all kinds of types and brands of personal health monitors are getting supported, each of which sends data to the health insurer that needs to be reliabily linked to the patient, and demonstrable authorization from the patient is needed before the health data can be collected, stored and used. Moreover, patients will be requisting information from the health insurer via virtual assistents like Amazon Alexa, Google Assistent, Apple Siri.
+A consumer contacts a customer service agent of his health insurance company, and is subsequently asked for proof of identity before getting answers to his personal health related questions. DIDcom could be of use here, replacing privacy sensitive and time consuming questions in order to establish the consumers' identity with an exchange of verifiable credentials using DIDcom.  In that case, the agent would just send a DIDCom message to the caller to link the ongoing human-to-human communication session to a DIDCom agent-to-agent communication session. The DIDCom connection protocol would then enable the setting up and maintenance of a trusted electronic relationship, to be used to exchange verifiable credentials. Replace insurance company with any sizeable business to consumer company and one realizes that this use case is far from insignificant.
 
-![Communication_channels.jpg](Communication_channels.jpg)
+Unfortunately, by itself, the parties DIDcom agents will be unable to bypass the firewalls involved and exchange DIDcom messages. Therefore XMPP is called to the rescue to serve as the transport protocol which is capable with firewalls. Once the firewalls issue is solved, DIDcom can be put to use in all of these cases.  
 
-The above problem space applies to any sector with intensive consumer-to-business communication, including health services, energy service, telecommunication services, television services, internet services, tax office services, parcel services, emergency services, etcetera.
+- The XMPP protocol is a popular protocol for chat and messaging. It has a client-server structure that bypasses any firewall issues.
 
-In the ideal case, the insurer just sends a DIDCom message to the caller to link the current human-to-human communication to the DIDCom agent-to-agent communication, bypassing any firewall issues. The combination of DIDCom and XMPP achieves this.
-
-- The [DIDCom connection protocol](https://github.com/hyperledger/indy-hipe/tree/master/text/0031-connection-protocol) enables the setting up and maintenance of a trusted electronic relationship.
-- The [XMPP protocol](https://en.wikipedia.org/wiki/XMPP) is a popular protocol for chat and messaging. It has a client-server structure that bypasses any firewall issues.
-
-The DIDCom-over-XMPP feature supports the following use cases.
+Examples of use cases the DIDCom-over-XMPP feature will be able to support:
 
 - Use case 1: A new trusted electronic relationship is initiated during an electronic human-to-human communication.
 - Use case 2a: An existing trusted electronic relationship is used during an electronic human-to-human communication to authenticate it.
-- Use case 2b: An existing trusted electronic relationship is used to switch to another an electronic human-to-human communication without losing the call history.
+- Use case 2b: An existing trusted electronic relationship is used to switch to another electronic human-to-human communication without losing its history.
+
 
 ## Tutorial
 [tutorial]: #tutorial
