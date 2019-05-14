@@ -31,13 +31,6 @@ Unfortunately, by itself, the parties DIDcom agents will be unable to bypass the
 
 - The XMPP protocol is a popular protocol for chat and messaging. It has a client-server structure that bypasses any firewall issues.
 
-Examples of use cases the DIDCom-over-XMPP feature will be able to support:
-
-- Use case 1: A new trusted electronic relationship is initiated during an electronic human-to-human communication.
-- Use case 2a: An existing trusted electronic relationship is used during an electronic human-to-human communication to authenticate it.
-- Use case 2b: An existing trusted electronic relationship is used to switch to another electronic human-to-human communication without losing its history.
-
-
 ## Tutorial
 [tutorial]: #tutorial
 
