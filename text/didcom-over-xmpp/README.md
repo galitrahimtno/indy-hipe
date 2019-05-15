@@ -133,7 +133,12 @@ xmpp-service-endpoint = "xmpp:" userpart "@did." domainpart
 ## Drawbacks
 [drawbacks]: #drawbacks
 
-No drawbacks have been identified.
+Having a human-readable userpart may be a strong correlation point, especially if the userpart is identical to one used for human-to-human XMPP chat. Two privacy-enhancing approaches have been suggested.
+
+- Use the DID in the userpart. The XMPP URL is not meant to human-readable anyway. Potential issue: mixes addressing between layers.
+- Provide large numbers of one-time-use service endpoints in the DID Document. Potential issue: adds complexity and dependencies.
+
+*Editor's note: further analysis is needed*
 
 ## Rationale and alternatives
 [alternatives]: #alternatives
@@ -150,7 +155,7 @@ XMPP was specifically designed for icoming messages to consumer devices. XMPP's 
 ## Unresolved questions
 [unresolved]: #unresolved-questions
 
-*Editor's note: add unresolved questions*
+See "Drawbacks" above
 
 ## Security considerations
 [security]: #security-considerations
